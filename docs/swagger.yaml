@@ -1,0 +1,215 @@
+basePath: /
+definitions:
+  response.JSend:
+    properties:
+      code:
+        type: string
+      data: {}
+      error:
+        type: string
+      status:
+        type: string
+    type: object
+  usecase.CreateUserRequest:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+    required:
+    - email
+    - name
+    type: object
+  usecase.ListUsersResponse:
+    properties:
+      limit:
+        type: integer
+      offset:
+        type: integer
+      total:
+        type: integer
+      users:
+        items:
+          $ref: '#/definitions/usecase.UserResponse'
+        type: array
+    type: object
+  usecase.UpdateUserRequest:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+    type: object
+  usecase.UserResponse:
+    properties:
+      email:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Production-ready Go microservice template using Clean Architecture
+    and DDD
+  title: template-go-echo API
+  version: 1.0.0
+paths:
+  /api/v1/users:
+    get:
+      description: Get a paginated list of all users
+      parameters:
+      - description: 'Offset for pagination (default: 0)'
+        in: query
+        name: offset
+        type: integer
+      - description: 'Limit for pagination (default: 10)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/usecase.ListUsersResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.JSend'
+      summary: List all users
+      tags:
+      - users
+    post:
+      consumes:
+      - application/json
+      description: Create a new user with the provided name and email
+      parameters:
+      - description: User data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/usecase.CreateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/usecase.UserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.JSend'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/response.JSend'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.JSend'
+      summary: Create a new user
+      tags:
+      - users
+  /api/v1/users/{id}:
+    delete:
+      description: Delete a user by their ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.JSend'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.JSend'
+      summary: Delete a user
+      tags:
+      - users
+    get:
+      description: Retrieve a user by their ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/usecase.UserResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.JSend'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.JSend'
+      summary: Get a user by ID
+      tags:
+      - users
+    put:
+      consumes:
+      - application/json
+      description: Update a user's information
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Updated user data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/usecase.UpdateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/usecase.UserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.JSend'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.JSend'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.JSend'
+      summary: Update a user
+      tags:
+      - users
+schemes:
+- http
+- https
+securityDefinitions:
+  Bearer:
+    description: JWT Bearer token
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
