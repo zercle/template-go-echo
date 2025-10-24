@@ -50,7 +50,7 @@ When user requests `initialize memory bank`:
 
 ### Memory Bank Update
 Triggered by:
-1. User explicitly requests "update memory bank" (MUST review ALL files)
+1. User explicitly requests `update memory bank` (MUST review ALL files)
 2. Discovering new project patterns
 3. After implementing significant changes
 4. When context needs clarification
