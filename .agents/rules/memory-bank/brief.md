@@ -1,13 +1,13 @@
-# Project Brief: Go Echo Microservice Template
+# Project Brief: Go Echo Modular Monolith Template
 
 ## Project Identity
 **Project Name:** template-go-echo
-**Type:** Go Echo Microservice Template
+**Type:** Go Echo modular monolith Template
 **Architecture:** Clean Architecture with Domain Driven Design
-**Purpose:** A lightweight and performant foundation for building microservices.
+**Purpose:** A lightweight and performant foundation for building modular monolith applications that can evolve into microservices.
 
 ## Executive Summary
-A production-ready Go backend template using the Echo framework and a Clean Architecture. It is designed for simplicity, performance, and ease of use, making it ideal for developing focused microservices.
+A production-ready Go backend template using the Echo framework and a Clean Architecture. It is designed for simplicity, performance, and ease of use, making it ideal for developing modular monolith applications with clear domain boundaries.
 
 ## Core Objectives
 1.  **High Performance**: Leverage Echo's speed for low-latency services.
@@ -63,9 +63,10 @@ template-go-echo/
 │   │   ├── handler/          # HTTP handlers with Swagger annotations
 │   │   ├── usecase/          # Business logic layer
 │   │   ├── repository/       # Data access via sqlc (handles transactions)
-│   │   ├── sqlc/             # Generated SQL code from /sql/queries
 │   │   ├── mock/             # Generated mock implementations
-│   │   └── *_test/           # Test files using _test package convention
+│   │   └── test/             # Test files using _test package convention
+│   ├── infrastructure/       # Project infrastructure
+│   │   └── sqlc/             # Generated SQL code from sqlc
 │   ├── middleware/           # HTTP middleware
 │   └── config/               # Configuration loading and validation
 ├── pkg/                      # Shared utilities (response, errors, custom types)
@@ -76,9 +77,12 @@ template-go-echo/
 ├── .agents/                  # Agent rules and memory bank
 │   └── rules/
 │       └── memory-bank/      # Project context and documentation
+├── bin/                      # Binary releases
+├── tmp/                      # Temporary files and artifacts
 ├── go.mod                    # Go module definition
 ├── go.sum                    # Dependency checksums
 ├── Makefile                  # Development tasks (build, test, lint, migrate)
+├── compose.yml               # Container compose
 ├── Dockerfile                # Container definition
 ├── .env.example              # Environment variable template
 └── README.md                 # Project documentation
@@ -121,3 +125,8 @@ template-go-echo/
 2.  **Architecture Decision Records (ADRs)**: Document significant design decisions.
 3.  **Contribution Guidelines**: Clear setup and contribution instructions.
 4.  **README**: Comprehensive project overview with quick-start guide.
+ 
+## Quality Assurance
+1. Generate mocks and tests with `go generate ./...`
+2. Lint with `golangci-lint run --fix ./...`
+3. Run tests with `go clean -testcache && go test -v -race ./...`
