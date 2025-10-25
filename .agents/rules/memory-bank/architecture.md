@@ -23,14 +23,14 @@
 **Responsibilities**:
 - HTTP request/response handling
 - Input validation and DTOs
-- Swagger/OpenAPI documentation generation
+- Swagger/OpenAPI annotations for documentation generation
 - Response formatting (JSend standard)
 - Authentication and authorization checks
 
 **Key Components**:
 - `*Handler` structs implementing HTTP endpoints
 - Request/Response DTOs
-- Swagger annotations for API documentation
+- Swagger/OpenAPI annotations for comprehensive API documentation
 - Middleware integration
 
 ### Usecase Layer (Business Logic)
@@ -220,6 +220,30 @@ JWT Token ← Response ← DTO ← Domain ← SQL Result ← DB
 - HTTP client connection reuse
 - Keep-alive connections optimization
 - Resource cleanup and management
+
+## API Documentation Architecture
+
+### Swagger/OpenAPI Integration
+**Documentation Generation**: Automated from code annotations using swaggo/swag
+**Location**: `/docs/` directory with generated files
+**Components**:
+- `docs/docs.go`: Generated Go code with API specifications
+- `docs/swagger.json`: OpenAPI 2.0 specification in JSON format
+- `docs/swagger.yaml`: OpenAPI 2.0 specification in YAML format
+- `/swagger/*` route: Interactive Swagger UI accessible via browser
+
+### Documentation Features
+**Interactive UI**: Swagger UI provides interactive API testing
+**Authentication Support**: JWT Bearer token authentication in Swagger UI
+**Complete Coverage**: All HTTP endpoints documented with request/response models
+**Version Control**: API documentation versioned with codebase
+**Auto-Generation**: Documentation automatically generated from handler annotations
+
+### Documentation Workflow
+1. **Annotations**: Add Swagger annotations to handler functions
+2. **Generation**: Run `make swagger` to generate documentation
+3. **Access**: View interactive docs at `http://localhost:8080/swagger/index.html`
+4. **Testing**: Use Swagger UI to test API endpoints with authentication
 
 ## Testing Architecture
 

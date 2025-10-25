@@ -98,6 +98,27 @@
   - Benefits: Isolated tests, no real database required
   - Use Case: Repository layer testing, transaction testing
 
+## API Documentation
+
+### Swagger/OpenAPI Stack
+- **swaggo/swag**: v1.16.6+ (Swagger/OpenAPI code generation)
+  - Features: Automated documentation from Go annotations
+  - Integration: Generates JSON/YAML specifications and Go code
+  - Benefits: Type-safe documentation, interactive UI, version control
+- **swaggo/echo-swagger**: v1.4.1+ (Echo middleware for Swagger)
+  - Features: Seamless Echo integration for Swagger UI
+  - Benefits: Easy setup, interactive API testing
+- **swaggo/files**: v1.0.1+ (Static file serving for Swagger UI)
+  - Features: Static file serving for generated documentation
+  - Benefits: Efficient serving, cache support
+
+### Documentation Features
+- **Interactive UI**: Swagger UI provides interactive API testing
+- **Authentication Support**: JWT Bearer token authentication in documentation
+- **Auto-Generation**: Documentation automatically generated from handler annotations
+- **Version Control**: API documentation versioned with codebase
+- **Multiple Formats**: Support for JSON, YAML, and interactive HTML formats
+
 ## Configuration Management
 
 ### Configuration Library
@@ -159,6 +180,7 @@
 - **sqlc**: SQL code generation
 - **golang-migrate**: Database migrations
 - **golangci-lint**: Code quality checks
+- **swag**: Swagger/OpenAPI documentation generation
 
 ### Development Scripts
 - **Makefile**: Common development tasks
@@ -167,6 +189,8 @@
   - `make lint`: Run code quality checks
   - `make migrate`: Run database migrations
   - `make generate`: Generate code (mocks, sqlc)
+  - `make swagger`: Generate Swagger documentation
+  - `make generate-all`: Generate all code (mocks, sqlc, swagger)
 
 ### IDE Integration
 - **VS Code**: Go extension, Docker extension

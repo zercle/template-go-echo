@@ -19,7 +19,7 @@ A production-ready Go backend template using the Echo framework and a Clean Arch
 ## Project Scope
 
 ### In Scope
-**Core Infrastructure:** Echo framework, Clean Architecture with DDD (Handler, Usecase, Repository, Domain), Database integration (sqlc + golang-migrate), JWT Authentication, Swagger Docs, Environment-based Config, Structured Logging, Centralized Error Handling, Health Checks, Graceful Shutdown, JSend Response Format, Interface Mocking.
+**Core Infrastructure:** Echo framework, Clean Architecture with DDD (Handler, Usecase, Repository, Domain), Database integration (sqlc + golang-migrate), JWT Authentication, Swagger/OpenAPI Documentation, Environment-based Config, Structured Logging, Centralized Error Handling, Health Checks, Graceful Shutdown, JSend Response Format, Interface Mocking.
 **Development Tools:** Docker support, Makefile commands, Linting (golangci-lint v2), sqlc code generation, Database migrations.
 **Documentation:** README, API (Swagger), Architecture Decision Records (ADRs), Example domain implementation.
 
@@ -94,7 +94,7 @@ template-go-echo/
 3.  **Type-Safe Database Access**: `sqlc` for generating type-safe Go code from SQL queries.
 4.  **Database Migrations**: `golang-migrate/migrate` for version-controlled schema changes.
 5.  **Configuration Management**: Environment-variable-driven with validation and defaults.
-6.  **API Documentation**: Automated Swagger/OpenAPI generation from handler annotations.
+6.  **API Documentation**: Comprehensive Swagger/OpenAPI documentation with interactive UI, authentication support, and automated generation from handler annotations.
 7.  **Testing Infrastructure**: Mock generation via `go:generate`, sqlmock for DB tests.
 8.  **Containerization**: Production-ready Dockerfile with graceful shutdown support.
 9.  **Performance Optimization**: Following goperf.dev patterns for networking and common operations.

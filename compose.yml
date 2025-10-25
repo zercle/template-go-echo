@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  # MariaDB Database
+  db:
+    image: mariadb:11-latest
+    container_name: template-go-echo-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root-password
+      MYSQL_DATABASE: template_go_echo
+      MYSQL_USER: appuser
+      MYSQL_PASSWORD: app-password
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./sql/migrations:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 3s
+      retries: 10
+      interval: 5s
+    networks:
+      - app-network
+
+  # Application Service
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: template-go-echo-app
+    ports:
+      - "8080:8080"
+    environment:
+      SERVER_ADDRESS: :8080
+      SERVER_DEBUG: "true"
+      DB_DRIVER: mysql
+      DB_DSN: appuser:app-password@tcp(db:3306)/template_go_echo
+      DB_MAX_CONNS: 10
+      JWT_SECRET: your-secret-key-change-this-in-production
+      JWT_TTL: 3600
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - app-network
+    command: ./template-go-echo
+
+volumes:
+  db_data:
+    driver: local
+
+networks:
+  app-network:
+    driver: bridge
